@@ -1,0 +1,25 @@
+{
+  "name": "sky-relic-runner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "check": "vp check",
+    "test": "vitest run",
+    "build": "vp build",
+    "preview": "vp preview"
+  },
+  "dependencies": {
+    "three": "^0.165.0",
+    "vite-tsconfig-paths": "^6.1.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.165.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.1",
+    "vite-plus": "^1.0.0",
+    "vitest": "^2.0.5"
+  }
+}
