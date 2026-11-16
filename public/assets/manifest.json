@@ -1,6 +1,36 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-11-16T00:00:00Z",
-  "assets": [],
-  "notes": "Asset manifest for Sky Relic Runner. Generated assets will be added via generate_image tool or procedural generation. Local fallbacks are provided for all asset types."
+  "assets": [
+    <!-- A01: Main-menu illustration -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A02: Stone texture -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A03: Brass/metal surface -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A04: Sky/cloud backdrop -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A05: Shard collectible icon -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A06: Power-up icons (shield, magnet, multiplier) -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A07: VFX sprites (sparkle, dust, streak) -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A08: Explorer concept reference -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A09: Title emblem -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+    
+    <!-- A10: Warning arrows/runes -->
+    <!-- filename, type, use, prompt, origin, dimensions, transparency, license/notes -->
+  ],
+  "notes": "Asset manifest for Sky Relic Runner. Generated assets should be added to public/assets/generated/ with filenames matching the entries above. See generate_prompts.md for detailed generation prompts per PRD §7.1-7.4. Procedural fallbacks via Canvas/SVG per PRD §9 available if generate_image tool is unavailable."
 }
