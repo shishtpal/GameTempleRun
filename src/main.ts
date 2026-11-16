@@ -5,12 +5,16 @@ import {HTMLOverlay} from './ui/Screens'
 import {LightingSystem} from './render/LightingSystem'
 import {ParticleSystem} from './render/ParticleSystem'
 import {AudioManager} from './audio/AudioManager'
+import {QualityManager} from './render/QualityManager'
 
 // Initialize game state
 const gameState = new GameState()
 
 // Initialize the game coordinator
 const game = new Game()
+
+// Initialize Quality Manager
+const quality = QualityManager.getInstance()
 
 // Initialize Three.js scene
 const scene = new Scene()
@@ -27,17 +31,16 @@ const particles = new ParticleSystem(scene, gameState)
 
 // Initialize audio manager
 const audio = new AudioManager()
-audio.playUIClick() // Initialize with user gesture
 
-// Initialize renderer
-const renderer = new WebGLRenderer({antialias: true})
+// Initialize renderer with quality settings
+const renderer = new WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.shadowMap.enabled = true // Enable shadows from lighting
+renderer.setPixelRatio(quality.getSettings().textureDPR)
+renderer.shadowMap.enabled = true // Enable shadows
 document.body.appendChild(renderer.domElement)
 
-// Add lights (handled by LightingSystem, but we also need ambient for the Three.js scene)
-// The LightingSystem handles this
+// Lighting is handled by LightingSystem, but we also set up basic lights
+// for the initial Three.js setup - the LightingSystem adds its own
 
 // Initialize HUD overlay
 const hud = new (await import('./ui/Screens')).HTMLOverlay()
@@ -45,6 +48,13 @@ hud.setGameState(gameState)
 
 // Start the game loop
 game.start()
+
+// Handle window resize with quality adjustments
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+  renderer.setSize(window.innerWidth, window.innerHeight)
+})
 
 // Game loop - also handles rendering and countdown
 let gameTime = 0
@@ -67,21 +77,18 @@ function animate(currentTime: number) {
 
   // Resize renderer
   renderer.setSize(window.innerWidth, window.innerHeight)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
 
   // Render scene
   renderer.render(scene, camera)
 
-  // Update game systems
+  // Update HUD
   hud.update()
+
+  // Update particles
   particles.update(deltaTime)
 
   requestAnimationFrame(animate)
 }
 requestAnimationFrame(animate)
-
-// Handle window resize
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight
-  camera.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
-})
