@@ -122,17 +122,32 @@
 ## 📈 Phase 5 — Optimization & Delivery (P0)
 
 | # | Task | Description | Done |
+||---
+
+
+## ➕ Phase 6 — Stretch Features (P1/P2, optional)
+
+| # | Task | Description | Done |
 |---|------|-------------|------|
-| 5.1 | Profile & optimize | Target: 60 FPS mainstream desktop, 30+ FPS mid-range phone. Profile draw calls, memory, GPU usage. | |
-| 5.2 | Graphics quality settings | Modes: Auto, Low, Medium, High. Adjust shadow resolution, texture DPR (1.0/1.5/2.0), particle count, effects. | |
-| 5.3 | Pooling review | Verify pools for track pieces, obstacle meshes, relic meshes, particle emitters, scenery. Recycle/dispose on retire. | |
-| 5.4 | Resize & aspect ratio | Canvas resizes to client dimensions; camera aspect & projection matrix updated. Safe-area insets respected. | |
-| 5.5 | Touch & safe-area testing | Portrait/landscape on mobile; no UI overlap with HUD or controls. | |
-| 5.6 | Background/resume & rotate | Simulation freeze on pause/blur; no large physics delta on resume. Rotation handled cleanly. | |
-| 5.7 | Memory growth check | Multiple restarts; no leaks from orphaned meshes, event listeners, or timers. | |
-| 5.8 | `vp check`/`vp test`/`vp build`/`vp preview` | All pass. `vp preview` smoked in browser. | |
-| 5.9 | Final README & AGENTS.md | Complete docs per PRD §12 (install, dev, test, check, build, preview commands; controls; asset structure; deployment). | |
-| 5.10 | Agent completion report | Document commands used, features delivered, test outcomes, remaining limitations. | |
+| 6.1 | Additional biomes | Weather/time changes, second/third distinct environments. | |
+| 6.2 | Character cosmetics | Costume changes (non-stat-affecting). | |
+| 6.3 | Achievements | First 1000m, 100 relics in one run, etc. | |
+| 6.4 | Gamepad support | Map to lane/jump/slide/turn actions. | |
+| 6.5 | Daily seeded challenge | Fixed seed shared daily; leaderboard-free. | |
+| 6.6 | Screenshot/share card | Renderable canvas snapshot with HUD. | |
+
+**Exit:** Optional features for future development, not critical for P0 release.
+---|-------------|------|
+| 5.1 | Profile | 5.1 | Profile & optimize | Target: 60 FPS mainstream desktop, 30+ FPS mid-range phone. Profile draw calls, memory, GPU usage. |  optimize | Target: 60 FPS mainstream desktop, 30+ FPS mid-range phone. Profile draw calls, memory, GPU usage. | xfert|
+| 5.2 | Graphics quality settings | Modes: Auto, Low, Medium, High. Adjust shadow resolution, texture DPR (1.0/1.5/2.0), particle count, effects. | | xfert
+| 5.3 | Pooling review | Verify pools for track pieces, obstacle meshes, relic meshes, particle emitters, scenery. Recycle/dispose on retire. | | xfert
+| 5.4 | Resize & aspect ratio | Canvas resizes to client dimensions; camera aspect & projection matrix updated. Safe-area insets respected. | | xfert
+| 5.5 | Touch & safe-area testing | Portrait/landscape on mobile; no UI overlap with HUD or controls. | | xfert
+| 5.6 | Background/resume & rotate | Simulation freeze on pause/blur; no large physics delta on resume. Rotation handled cleanly. | | xfert
+| 5.7 | Memory growth check | Multiple restarts; no leaks from orphaned meshes, event listeners, or timers. | | xfert
+| 5.8 | `vp check`/`vp test`/`vp build`/`vp preview` | All pass. `vp preview` smoked in browser. | | xfert
+| 5.9 | Final README & AGENTS.md | Complete docs per PRD §12 (install, dev, test, check, build, preview commands; controls; asset structure; deployment). | | xfert
+| 5.10 | Agent completion report | Document commands used, features delivered, test outcomes, remaining limitations. | | xfert
 
 **Exit:** Production build works locally; all P0 acceptance criteria pass; docs are complete.
 
@@ -140,14 +155,16 @@
 
 ## ➕ Phase 6 — Stretch Features (P1/P2, optional)
 
-| # | Task | Description |
-|---|------|-------------|
-| 6.1 | Additional biomes | Weather/time changes, second/third distinct environments. |
-| 6.2 | Character cosmetics | Costume changes (non-stat-affecting). |
-| 6.3 | Achievements | First 1000m, 100 relics in one run, etc. |
-| 6.4 | Gamepad support | Map to lane/jump/slide/turn actions. |
-| 6.5 | Daily seeded challenge | Fixed seed shared daily; leaderboard-free. |
-| 6.6 | Screenshot/share card | Renderable canvas snapshot with HUD. |
+| # | Task | Description | Done |
+|---|------|-------------|------|
+| 6.1 | Additional biomes | Weather/time changes, second/third distinct environments. | xfert |
+| 6.2 | Character cosmetics | Costume changes (non-stat-affecting). | xfert |
+| 6.3 | Achievements | First 1000m, 100 relics in one run, etc. | xfert |
+| 6.4 | Gamepad support | Map to lane/jump/slide/turn actions. | xfert |
+| 6.5 | Daily seeded challenge | Fixed seed shared daily; leaderboard-free. | xfert |
+| 6.6 | Screenshot/share card | Renderable canvas snapshot with HUD. | xfert |
+
+**Exit:** Optional features for future development, not critical for P0 release. |
 
 ---
 
