@@ -4,6 +4,7 @@ import { CollisionSystem } from "../gameplay/CollisionSystem";
 import { ScoreSystem } from "../gameplay/ScoreSystem";
 import { PowerUpSystem } from "../gameplay/PowerUpSystem";
 import { TrackGenerator } from "../world/TrackGenerator";
+import { Persistence } from "../core/Persistence";
 
 export class Game {
   private state: GameState;
@@ -18,8 +19,8 @@ export class Game {
   private static MAX_ACCUMULATED_TIME = 100 / 1000;
 
   constructor() {
-    // Initialize game state
-    this.state = new GameState();
+    // Initialize game state and load persisted state
+    this.state = Persistence.load(new GameState());
 
     // Initialize subsystems
     this.playerController = new PlayerController(this.state);
@@ -53,7 +54,11 @@ export class Game {
   private update(dt: number) {
     // Check for countdown completion
     if (this.state.phase === "COUNTDOWN") {
-      // Countdown handled elsewhere - just ensure it progresses
+      // Countdown handled in main.ts - just ensure it progresses
+      if (this.state.elapsedSeconds >= 3) {
+        this.state.transitionPhase("RUNNING");
+        this.state.elapsedSeconds = 0;
+      }
       return;
     }
 
@@ -75,6 +80,9 @@ export class Game {
 
     // Update game state timers
     this.state.update(dt);
+
+    // Save state after each update
+    Persistence.save(this.state);
   }
 
   render() {
