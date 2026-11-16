@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-16T00:00:00Z",
+  "assets": [],
+  "notes": "Asset manifest for Sky Relic Runner. Generated assets will be added via generate_image tool or procedural generation. Local fallbacks are provided for all asset types."
+}
