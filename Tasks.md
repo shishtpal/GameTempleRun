@@ -43,23 +43,26 @@ _Derived from PRD v1.0 (Sky Relic Runner — 3D Endless Runner). This file break
 | 1.6  | Touch controls (mobile)             | Swipe detection: `pointerdown`/`pointerup`, min travel ~35 CSS px, dominant axis. Same mapping as desktop.          |      |
 | 1.7  | Jump mechanic                       | Deterministic vertical velocity/gravity; ~0.90s airborne; dust puff on takeoff/landing.                             |      |
 | 1.8  | Slide mechanic                      | ~0.75s crouch duration; reduced collision height; animation blend.                                                  |      |
-| 1.9  | Collision detection                 | Broad-phase + narrow AABB test per posture; shield absorbs one collision.                                           |      |
-| 1.10 | Death & retry                       | Collision without shield → transition to `DYING` → `GAME_OVER`. Retry button starts clean new run.                  |      |
-| 1.11 | Endless straight track              | Pooled straight segments (18–28 units each); runner auto-runs at 10→22 units/sec.                                   |      |
-| 1.12 | Distance & score                    | `floor(distance × baseDistanceRate)` accumulation; display HUD.                                                     |      |
-| 1.13 | Build & test verification           | `vp check`, `vp test`, `vp build` pass. `vp preview` shows playable run on endless straight.                        |      |
+## 🎨 Phase 4 — AI Assets, Game Feel & Polish (P0)
 
-**Exit:** A complete, endlessly replayable straight-path run works without refresh. Lane changes, jumps, slides, collisions, and restart all function correctly.
+| #   | Task                                   | Description                                                                                                                                                                                                | Done |
+| --- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| 4.1 | Run `generate_image` for asset batches   | Generate all P0 priority assets (A01–A08 per PRD §7.1). **Tool unavailable in sandbox** — procedural fallbacks via Canvas/SVG implemented per PRD §9. See documentation in `Tasks.md` Asset Integrity section below. |      |
+| 4.2 | Optimize & convert                       | Convert to WebP/PNG; preserve alpha; validate dimensions/channels.                                                                                                                                          |      |
+| 4.3 | Update asset manifest                    | List each file: filename, type, use, prompt, origin, dimensions, transparency, license/notes.                                                                                                                 |      |
+| 4.4 | Integrate textures into game             | `THREE.TextureLoader`; correct `colorSpace`; wrapping/filtering/anisotropy.                                                                                                                                   |      |
+| 4.5 | VFX & particles                          | ParticleSystem: jump dust puff (takeoff & landing), slide streak, shield bubble, magnet attraction lines, multiplier glow, collision impact burst, pickup sparkle, collision flash.                                           |      |
+| 4.6 | Character & scenery polish               | Procedural 3D character via primitive geometry (Three.js Box/Sphere/Cylinder); low-poly trees using truncated cones/spheres; brass machinery meshes; sky islands with planes/spheres; cohesive painterly low-poly aesthetic matching PRD §6.1. |      |
+| 4.7 | Lighting & atmosphere                    | LightingSystem: Hemisphere light (golden hour/sky colors), Directional light (sun), Fog (depth cues matching PRD §6.1, sky blue fog density 20-80 units), directional shadows.                                   |      |
+| 4.8 | Sound & audio                            | AudioManager: locally shipped SFX (planned: footsteps, jump, slide, pickup, power-up, turn, collision, game over, UI clicks). Looped ambient track. Web Audio API graceful fallback when unavailable; user gesture required to unlock audio. |      |
+| 4.9 | Accessibility                            | `prefers-reduce-motion` respect: reduce camera shake/flash intensity, optional reduced particle count. Mute and separate music/SFX level toggles. HUD respectes reduced-motion setting.                        |      |
+| 4.10| Build & test verification                | `vp check` passes (all source files correctly formatted). Gameplay verifiable in-browser. Asset payload documented (~12 MB target per PRD).                                                                      |      |
+
+**Exit:** Cohesive original visual identity and audio; procedural fallbacks documented when `generate_image` tool unavailable; no missing assets or broken references.
 
 ---
-
-## 🔄 Phase 2 — Complete Traversal & Fairness (P0)
-
-| #   | Task                      | Description                                                                                                                                                 | Done |
-| --- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| 2.1 | Implement true 90° turns  | Spawn left/right junctions with clear arrow cue ~20–30 units before corner. Turn zones hazard-free before/during/after.                                     |      |
-| 2.2 | Turn input window         | Matching left/right key/swipe within window performs turn. Missed turn / wrong input → game over.                                                           |      |
-| 2.3 | Track generator           | Data-driven segment generation using seeded RNG (Mulberry32/xorshift32). Segments: straight (18–28 units), turn segments separate.                          |      |
+## 📈 Phase 5 — Optimization & Delivery (P0)
+| 1.9  | Collision detection                 | Broad-phase + narrow AABB test per posture; shield absorbs one collision.                                           |      |
 | 2.4 | Segment pooling           | Generate ~100–160 units ahead; retire behind camera (~30–50 units). Seamless topology at joins.                                                             |      |
 | 2.5 | Pattern validator         | Reachable-state validator: consider lane-switch time, jump/slide time, action lockouts, turn inputs over short forward horizon. Reject impossible patterns. |      |
 | 2.6 | Deterministic generation  | Generator uses `seed + generation state`; never `Math.random()` scattered. Seeded replay for bug reproduction.                                              |      |
