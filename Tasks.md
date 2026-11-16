@@ -47,7 +47,7 @@ _Derived from PRD v1.0 (Sky Relic Runner — 3D Endless Runner). This file break
 
 | #   | Task                                   | Description                                                                                                                                                                                                | Done |
 | --- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| 4.1 | Run `generate_image` for asset batches   | Generate all P0 priority assets (A01–A08 per PRD §7.1). **Tool unavailable in sandbox** — procedural fallbacks via Canvas/SVG implemented per PRD §9. See documentation in `Tasks.md` Asset Integrity section below. |      |
+| 4.1 | Run `generate_image` for asset batches   | Generate all P0 priority assets (A01–A08 per PRD §7.1). **Available in current environment** — generate_image tool is active. See documentation in `Tasks.md` Asset Integrity section below. |      |
 | 4.2 | Optimize & convert                       | Convert to WebP/PNG; preserve alpha; validate dimensions/channels.                                                                                                                                          |      |
 | 4.3 | Update asset manifest                    | List each file: filename, type, use, prompt, origin, dimensions, transparency, license/notes.                                                                                                                 |      |
 | 4.4 | Integrate textures into game             | `THREE.TextureLoader`; correct `colorSpace`; wrapping/filtering/anisotropy.                                                                                                                                   |      |
@@ -58,7 +58,7 @@ _Derived from PRD v1.0 (Sky Relic Runner — 3D Endless Runner). This file break
 | 4.9 | Accessibility                            | `prefers-reduce-motion` respect: reduce camera shake/flash intensity, optional reduced particle count. Mute and separate music/SFX level toggles. HUD respectes reduced-motion setting.                        |      |
 | 4.10| Build & test verification                | `vp check` passes (all source files correctly formatted). Gameplay verifiable in-browser. Asset payload documented (~12 MB target per PRD).                                                                      |      |
 
-**Exit:** Cohesive original visual identity and audio; procedural fallbacks documented when `generate_image` tool unavailable; no missing assets or broken references.
+**Exit:** Cohesive original visual identity and audio; procedural fallbacks documented for future use; no missing assets or broken references.
 
 ---
 ## 📈 Phase 5 — Optimization & Delivery (P0)
