@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Sky Relic Runner — Asset Review</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                margin: 0;
+                background: #0c202a;
+                color: #edf8ed;
+                font-family: system-ui, sans-serif;
+            }
+            header {
+                position: relative;
+                height: min(75vh, 680px);
+                min-height: 400px;
+                display: grid;
+                place-items: center;
+                background:
+                    linear-gradient(#091d2933, #091d2977),
+                    url("./assets/generated/menu-sky-ruins.webp") center / cover;
+            }
+            .title {
+                width: min(510px, 90vw);
+                aspect-ratio: 1;
+                position: relative;
+                display: grid;
+                place-items: center;
+            }
+            .title img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            h1 {
+                z-index: 1;
+                position: relative;
+                margin: 0 0 2%;
+                text-align: center;
+                font:
+                    900 clamp(22px, 3vw, 35px) / 1.05 Georgia,
+                    serif;
+                color: #173f44;
+                text-shadow: 0 1px #fff3c4;
+            }
+            main {
+                max-width: 1300px;
+                padding: 30px 24px 60px;
+                margin: auto;
+            }
+            .summary {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+            button {
+                color: #b4f7e4;
+                border: 1px solid #4f807d;
+                background: #173c46;
+                padding: 10px 16px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            #status {
+                color: #a8d2cf;
+            }
+            #gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 18px;
+                margin-top: 24px;
+            }
+            article {
+                background: #14323d;
+                border: 1px solid #2c5157;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            .art {
+                height: 245px;
+                padding: 18px;
+                display: grid;
+                place-items: center;
+                position: relative;
+                background-color: #10242e;
+            }
+            .checker .art {
+                background-image: conic-gradient(
+                    #263d46 25%,
+                    #182c35 0 50%,
+                    #263d46 0 75%,
+                    #182c35 0
+                );
+                background-size: 24px 24px;
+            }
+            .art img {
+                max-width: 100%;
+                max-height: 205px;
+                object-fit: contain;
+            }
+            .art .label {
+                position: absolute;
+                inset: 0;
+                display: grid;
+                place-items: center;
+                font-size: 44px;
+                font-weight: 900;
+                text-shadow: 0 2px 3px #072929;
+            }
+            article h2 {
+                font-size: 14px;
+                margin: 16px 16px 7px;
+                overflow-wrap: anywhere;
+            }
+            article p {
+                font-size: 12px;
+                line-height: 1.5;
+                margin: 0 16px 16px;
+                color: #a8c8c9;
+            }
+            .tiles {
+                height: 220px;
+                background-size: 180px 180px;
+                border-radius: 10px;
+                border: 1px solid #44636a;
+            }
+            .tile-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 18px;
+            }
+            .swatches {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin: 24px 0;
+            }
+            .swatches span {
+                padding: 18px 12px;
+                min-width: 95px;
+                border-radius: 8px;
+                font-size: 12px;
+                text-shadow: 0 1px 3px #000;
+            }
+            a {
+                color: #69e9cf;
+            }
+            @media (max-width: 550px) {
+                .tile-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="title">
+                <img
+                    src="./assets/generated/title-emblem.webp"
+                    alt="Decorative sandstone, brass and turquoise title emblem"
+                />
+                <h1>Sky Relic Runner</h1>
+            </div>
+        </header>
+        <main>
+            <div class="summary">
+                <div>
+                    <h2>Original game artwork</h2>
+                    <p id="status" role="status">Loading local asset manifest…</p>
+                </div>
+                <button type="button" id="background">Show transparency grid</button>
+            </div>
+            <div
+                class="swatches"
+                id="palette"
+                aria-label="Colors extracted from sky backdrop"
+            ></div>
+            <div id="gallery"></div>
+            <h2>Repeating albedo textures</h2>
+            <p>Repeated at 180 pixels per tile for visual seam inspection.</p>
+            <div class="tile-grid">
+                <div
+                    class="tiles"
+                    aria-label="Repeating stone"
+                    style="background-image: url(&quot;./assets/generated/stone-albedo.webp&quot;)"
+                ></div>
+                <div
+                    class="tiles"
+                    aria-label="Repeating brass"
+                    style="
+                        background-image: url(&quot;./assets/generated/brass-embossed.webp&quot;);
+                    "
+                ></div>
+            </div>
+            <p><a href="./assets/manifest.json">Asset manifest and prompt descriptions</a></p>
+        </main>
+        <script type="module">
+            const status = document.querySelector("#status");
+            const gallery = document.querySelector("#gallery");
+            document.querySelector("#background").addEventListener("click", (event) => {
+                const checker = gallery.classList.toggle("checker");
+                event.target.textContent = checker
+                    ? "Show dark background"
+                    : "Show transparency grid";
+            });
+            try {
+                const response = await fetch("./assets/manifest.json");
+                if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
+                const manifest = await response.json();
+                const checks = manifest.assets.map(async (asset) => {
+                    const card = document.createElement("article");
+                    const art = document.createElement("div");
+                    art.className = "art";
+                    const image = document.createElement("img");
+                    image.src = `./assets/${asset.path}`;
+                    image.alt = asset.use;
+                    art.append(image);
+                    if (asset.id === "A06-MULTIPLIER") {
+                        const label = document.createElement("span");
+                        label.className = "label";
+                        label.textContent = "2x";
+                        art.append(label);
+                    }
+                    const heading = document.createElement("h2");
+                    heading.textContent = `${asset.id} · ${asset.filename}`;
+                    const details = document.createElement("p");
+                    details.textContent = `${asset.dimensions.width} × ${asset.dimensions.height} · ${(asset.bytes / 1024).toFixed(1)} KB · ${asset.transparency ? "RGBA" : "opaque"} — ${asset.use}`;
+                    card.append(art, heading, details);
+                    gallery.append(card);
+                    await image.decode();
+                    if (
+                        image.naturalWidth !== asset.dimensions.width ||
+                        image.naturalHeight !== asset.dimensions.height
+                    )
+                        throw new Error(`${asset.filename}: unexpected dimensions`);
+                    if (asset.vectorSource) {
+                        const vector = new Image();
+                        vector.src = `./assets/${asset.vectorSource}`;
+                        await vector.decode();
+                    }
+                });
+                for (const color of manifest.palette) {
+                    const swatch = document.createElement("span");
+                    swatch.style.backgroundColor = color;
+                    swatch.textContent = color;
+                    document.querySelector("#palette").append(swatch);
+                }
+                await Promise.all(checks);
+                status.textContent = `${checks.length} / ${checks.length} assets decoded · ${(manifest.productionBytes / 1024 / 1024).toFixed(2)} MB · all files local`;
+                document.body.dataset.assetsVerified = "true";
+            } catch (error) {
+                status.textContent = `Asset check failed: ${error.message}`;
+                document.body.dataset.assetsVerified = "false";
+                console.error(error);
+            }
+        </script>
+    </body>
+</html>

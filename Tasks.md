@@ -184,3 +184,20 @@ _Derived from PRD v1.0 (Sky Relic Runner — 3D Endless Runner). This file break
 - [ ] Agent performs a final interactive browser smoke test and reports which tests were actually run.
 
 ---
+
+## Asset Integrity — 2026-11-16
+
+- [x] Generated A01–A09 with the built-in `image_gen` tool and saved optimized local artwork under `public/assets/generated/`.
+- [x] Supplied all 17 named outputs from `generate_prompts.md`, plus `fx-glow.webp` to meet the PRD's four-sprite A07 minimum: 18 raster assets total.
+- [x] Used A10's preferred SVG alternative for four original directional runes; supplied editable SVGs and 128×128 transparent WebP exports. This is an explicitly permitted vector approach, not an image-tool failure fallback.
+- [x] Preserved generator alpha, trimmed/centered icons, feathered VFX margins, and kept title/multiplier labels in DOM examples.
+- [x] Corrected the explorer reference to a neutral background using a follow-up image edit. The PNG is concept art for procedural geometry, not an animated model.
+- [x] Verified formats, dimensions, alpha, hashes, metadata and exact decoded opposite edges for both 512×512 albedo textures with `tools/assets/verify_assets.py`.
+- [x] Recorded per-file prompts, origin, source exports, usage, dimensions, transparency, license notes, palette and payload in `public/assets/manifest.json`.
+- [x] Production asset payload: 1,753,975 bytes (1.67 MiB), including concept and SVG sources; below the 12 MB target.
+- [x] Browser asset smoke test: standalone `public/asset-review.html` decoded all 18 raster assets and four SVG alternatives successfully; every visible image had nonzero natural dimensions. The page demonstrates title and `2x` DOM overlays and repeating albedo textures.
+- [x] Added a base-aware cached Three.js texture loader with sRGB, repeat wrapping, mipmaps, anisotropy, optional load failure handling and disposal. Its standalone library build passes.
+- [ ] Wire all artwork into playable world geometry, HUD and VFX, convert the concept into an animated primitive character, and perform gameplay QA. The existing scaffold has no HTML entrypoint or world mesh renderer and contains unresolved module/runtime/state errors; see `tools/assets/README.md`.
+- [ ] Project-wide `npm run check` and `npm run build`: existing formatting/tsconfig errors and missing `index.html` prevent these checks passing. The asset-only format, integrity and browser checks are recorded separately.
+
+Review: run `node tools/assets/serve_review.mjs`, then open `http://127.0.0.1:8767/asset-review.html`. Offline contact sheet: `tools/assets/contact-sheet.jpg`.
