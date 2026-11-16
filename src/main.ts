@@ -9,17 +9,12 @@ import {
 import { Game } from "./app/Game";
 import { GameState } from "./core/GameState";
 import { HTMLOverlay } from "./ui/Screens";
-import { HUD } from "./ui/HUD";
 
 // Initialize game state
 const gameState = new GameState();
 
 // Initialize the game coordinator
 const game = new Game();
-
-// Initialize HUD
-const hud = new HUD();
-hud.setGameState(gameState);
 
 // Initialize Three.js scene
 const scene = new Scene();
@@ -44,33 +39,36 @@ scene.add(directionalLight);
 // Start the game loop
 game.start();
 
-// Game loop - also handles rendering
+// Handle window resize
+window.addEventListener("resize", () => {
+  // Renderer resize handled in the game loop
+});
+
+// Game loop - also handles rendering and countdown
 let gameTime = 0;
 function animate(currentTime: number) {
   const deltaTime = (currentTime - gameTime) / 1000; // convert to seconds
   gameTime = currentTime;
 
-  // Update elapsed time
+  // Update game state elapsed time
   gameState.elapsedSeconds += deltaTime;
 
-  // Update HUD
-  hud.update();
+  // Check phase transitions
+  if (gameState.phase === "COUNTDOWN") {
+    // Simple countdown: 3 seconds, then start
+    if (gameState.elapsedSeconds >= 3) {
+      gameState.transitionPhase("RUNNING");
+      gameState.elapsedSeconds = 0; // reset for gameplay
+    }
+  }
 
   // Resize renderer
   renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
 
-  // Render scene
+  // Render scene (would include player, track, etc.)
+  // For now, just clear
   renderer.render(scene, camera);
 
   requestAnimationFrame(animate);
 }
 requestAnimationFrame(animate);
-
-// Handle window resize
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});

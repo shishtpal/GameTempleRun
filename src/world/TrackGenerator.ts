@@ -66,7 +66,7 @@ export class TrackGenerator {
     };
   }
 
-  private rerollStraight(originalLength: number) {
+  private rerollStraight() {
     // Generate a new straight segment with different obstacle pattern
     const newLength = this.rng.intInRange(STRAIGHT_LENGTH_MIN, STRAIGHT_LENGTH_MAX);
     const newPiece = this.createPiece("STRAIGHT", newLength);
@@ -111,7 +111,7 @@ export class TrackGenerator {
   /** Generate obstacles for a segment based on type and length */
   private generateObstacles(kind: "STRAIGHT" | "TURN", segmentLength: number): ObstacleSpawn[] {
     const obstacles: ObstacleSpawn[] = [];
-    const laneCount = 3;
+    const _laneCount = 3;
     const laneWidth = 2.3; // world units
 
     // Determine how many obstacles can fit in this segment
@@ -131,7 +131,7 @@ export class TrackGenerator {
 
       // Position along segment
       const positionAlong = this.rng.float(0, segmentLength);
-      const worldPosition = this.generatedDistance - segmentLength / 2 + positionAlong;
+      const _worldPosition = this.generatedDistance - segmentLength / 2 + positionAlong;
 
       // Obstacle dimensions based on type
       let width: number;

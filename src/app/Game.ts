@@ -11,11 +11,11 @@ export class Game {
   private collisionSystem: CollisionSystem;
   private scoreSystem: ScoreSystem;
   private powerUpSystem: PowerUpSystem;
-  private trackGenerator: TrackGenerator;
+  private trackGenerator: TrackGenerator | null = null;
   private lastTime: number = 0;
   private accumulatedTime: number = 0;
-  private static FIXED_TIME_STEP = 1 / 60; // 60 FPS
-  private static MAX_ACCUMULATED_TIME = 100 / 1000; // 100ms
+  private static FIXED_TIME_STEP = 1 / 60;
+  private static MAX_ACCUMULATED_TIME = 100 / 1000;
 
   constructor() {
     // Initialize game state
@@ -26,7 +26,6 @@ export class Game {
     this.collisionSystem = new CollisionSystem(this.state);
     this.scoreSystem = new ScoreSystem(this.state);
     this.powerUpSystem = new PowerUpSystem(this.state);
-    this.trackGenerator = new TrackGenerator(this.state);
   }
 
   start() {
@@ -35,11 +34,11 @@ export class Game {
   }
 
   private gameLoop(currentTime: number) {
-    const deltaTime = (currentTime - this.lastTime) / 1000; // convert to seconds
+    const deltaTime = (currentTime - this.lastTime) / 1000;
     this.lastTime = currentTime;
 
-    // Clamp delta time to prevent spiral of death
-    const clampedDelta = Math.min(deltaTime, 100 / 1000); // 100ms max
+    // Clamp delta time
+    const clampedDelta = Math.min(deltaTime, 100 / 1000);
     this.accumulatedTime += deltaTime;
 
     // Process fixed-step updates
@@ -48,13 +47,23 @@ export class Game {
       this.accumulatedTime -= Game.FIXED_TIME_STEP;
     }
 
-    // Render request
     requestAnimationFrame((t) => this.gameLoop(t));
   }
 
   private update(dt: number) {
+    // Check for countdown completion
+    if (this.state.phase === "COUNTDOWN") {
+      // Countdown handled elsewhere - just ensure it progresses
+      return;
+    }
+
+    // Initialize track generator when starting
+    if (this.state.phase === "RUNNING" && !this.trackGenerator) {
+      this.trackGenerator = new TrackGenerator(this.state);
+    }
+
     // Update track generation
-    this.trackGenerator.update(dt);
+    this.trackGenerator?.update(dt);
 
     // Update input
     this.playerController.update(dt);
@@ -64,17 +73,15 @@ export class Game {
     this.scoreSystem.update(dt);
     this.powerUpSystem.update(dt);
 
-    // Update game state (timers, phase transitions, etc.)
+    // Update game state timers
     this.state.update(dt);
   }
 
   render() {
-    // Rendering will be handled by the Three.js scene
-    // This is called after fixed-step updates
+    // Rendering handled elsewhere
   }
 
   resize() {
-    // Handle canvas resize
     console.log("Window resized");
   }
 }
